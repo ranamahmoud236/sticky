@@ -5,40 +5,29 @@
  */
 package stickynote;
 
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+
 /**
  *
- * @author Rana
+ * @author Yousef
  */
 public class Users {
-     private String fname;
-    private String lname;
-
-    public Users(String fname, String lname) {
-        this.fname = fname;
-        this.lname = lname;
-    }
-
-    public String getFname() {
-        return fname;
-    }
-
-    public String getLname() {
-        return lname;
-    }
-
-    public void setFname(String fname) {
-        this.fname = fname;
-    }
-
-    public void setLname(String lname) {
-        this.lname = lname;
-    }
-
     
-    public String users() {
-        return "Users{" + "fname=" + fname + ", lname=" + lname + '}';
+    private ArrayList<User> users;
+
+    public Users() throws IOException {
+        File f = new File("users.txt");
+        if(!f.exists())
+            f.createNewFile();
+        FileReader users = new FileReader("users.txt");
+        users.readA
     }
-    
-    
+
+    public void addUser(User user) {
+        
+    }
     
 }
