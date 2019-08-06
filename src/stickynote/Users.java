@@ -5,40 +5,60 @@
  */
 package stickynote;
 
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+
 /**
  *
  * @author Rana
  */
 public class Users {
-     private String fname;
-    private String lname;
+    private static ArrayList<User> users;
 
-    public Users(String fname, String lname) {
-        this.fname = fname;
-        this.lname = lname;
+    public Users() throws IOException {
+        users = new ArrayList<>();
+        
+        File file = new File("users.txt");
+        if(!file.exists())
+            file.createNewFile();
+        
+        try(FileReader f = new FileReader(file)) {
+            StringBuffer sb = new StringBuffer();
+            while (f.ready()) {
+                char c = (char) f.read();
+                if (c == '\n') {
+                    User user = new User(sb.toString());
+                    users.add(user);
+                    sb = new StringBuffer();
+                } else {
+                    sb.append(c);
+                }
+            }
+            if (sb.length() > 0) {
+                User user = new User(sb.toString());
+                users.add(user);
+            }
+        }
     }
-
-    public String getFname() {
-        return fname;
-    }
-
-    public String getLname() {
-        return lname;
-    }
-
-    public void setFname(String fname) {
-        this.fname = fname;
-    }
-
-    public void setLname(String lname) {
-        this.lname = lname;
-    }
-
     
-    public String users() {
-        return "Users{" + "fname=" + fname + ", lname=" + lname + '}';
+    public static void addNewUser(User newUser) throws IOException {
+        File file = new File("users.txt");
+        try (FileWriter fr = new FileWriter(file, true)) {
+            fr.write(newUser.getFullName() + "\n");
+        }
     }
     
-    
-    
+    public static boolean isUserExists(User user) {
+        boolean found = false;
+        for (User u : users) {
+            if(u.getFirstName().equals(user.getFirstName()) && u.getLastName().equals(user.getLastName())) {
+                found = true;
+                break;
+            }
+        }
+        return found;
+    }
 }

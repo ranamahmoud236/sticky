@@ -5,6 +5,10 @@
  */
 package stickynote;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Rana
@@ -14,8 +18,12 @@ public class MainMenu extends javax.swing.JFrame {
     /**
      * Creates new form gui
      */
-    public MainMenu() {
+    
+    public Users users;
+    
+    public MainMenu() throws IOException {
         initComponents();
+        users = new Users();
     }
 
     /**
@@ -180,7 +188,11 @@ public class MainMenu extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MainMenu().setVisible(true);
+                try {
+                    new MainMenu().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
