@@ -149,7 +149,12 @@ public class AddNewUser extends javax.swing.JFrame {
     }//GEN-LAST:event_firstNameFieldActionPerformed
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
-        MainMenu mainMenu = new MainMenu();
+        MainMenu mainMenu = null;
+        try {
+            mainMenu = new MainMenu();
+        } catch (IOException ex) {
+            Logger.getLogger(AddNewUser.class.getName()).log(Level.SEVERE, null, ex);
+        }
         mainMenu.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_backBtnActionPerformed
